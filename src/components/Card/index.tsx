@@ -51,7 +51,11 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
                     <strong>{title}</strong>
                     <span>{subtitle}</span>
                     <span>Idioma: {language.toUpperCase()}</span>
-                    <a href={previewLink} target="blank">
+                    <a
+                        href={previewLink}
+                        target="blank"
+                        rel="noopener noreferrer"
+                    >
                         Ver no Google Books
                     </a>
                 </div>
