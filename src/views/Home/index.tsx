@@ -11,6 +11,9 @@ const Home: React.FC = () => {
         <>
             <Search />
             <div className="home__container">
+                {Object.keys(books).length === 0 && (
+                    <strong>Seus resultados de busca aparecerão aqui</strong>
+                )}
                 {books.map(book => (
                     <Card key={book.id} book={book.volumeInfo} />
                 ))}
