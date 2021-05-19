@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Container } from './styles';
+
 const Details: React.FC = () => {
     return (
-        <div>
+        <Container>
             <h1>Details</h1>
-        </div>
+        </Container>
     );
 };
 
