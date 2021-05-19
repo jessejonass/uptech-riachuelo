@@ -55,10 +55,10 @@ const Search: React.FC = () => {
                 </button>
             </form>
 
-            <div>
+            <a href="/favorites" className="search__favorites">
                 <span>Ver meus favoritos</span>
                 <AiFillHeart />
-            </div>
+            </a>
         </div>
     );
 };

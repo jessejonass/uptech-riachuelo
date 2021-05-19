@@ -36,9 +36,24 @@
         }
     }
 
+    .search__favorites {
+        display: flex;
+        align-items: center;
+        color: #e5e5e5;
+
+        &:hover {
+            filter: contrast(0.8);
+        }
+
+        span {
+            margin-right: 12px;
+        }
+    }
+
     @media (max-width: 800px) {
         .search__input {
             width: 100%;
         }
+
     }
 }
