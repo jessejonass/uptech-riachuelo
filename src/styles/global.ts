@@ -8,8 +8,9 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
 
-    body: {
+    body {
         background: #E5E5E5;
+        color: #101010;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -18,8 +19,10 @@ export default createGlobalStyle`
     }
 
     #root {
-        max-width: 1020px;
         margin: 0 auto;
-        padding: 0 20px;
+    }
+
+    button {
+        cursor: pointer;
     }
 `;
