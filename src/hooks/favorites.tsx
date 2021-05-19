@@ -47,7 +47,12 @@ const FavoriteProvider: React.FC = ({ children }) => {
     const removeFavorite = useCallback(
         (fav: Book) => {
             const favoritsWithoutRemoved = favorites.filter(
-                f => f.id === fav.id,
+                f => f.id !== fav.id,
+            );
+            setFavorites(favoritsWithoutRemoved);
+            localStorage.setItem(
+                '@books+:favorites',
+                JSON.stringify(favoritsWithoutRemoved),
             );
         },
         [favorites],
@@ -55,20 +60,25 @@ const FavoriteProvider: React.FC = ({ children }) => {
 
     const addFavorite = useCallback(
         (fav: Book) => {
-            console.log(fav);
-            localStorage.setItem(
-                '@books+:favorites',
-                JSON.stringify([...favorites, { ...fav }]),
-            );
-            setFavorites([...favorites, { ...fav }]);
+            const alreadyFavorite = favorites.find(f => f.id === fav.id);
+
+            if (alreadyFavorite) {
+                removeFavorite(fav);
+            } else {
+                localStorage.setItem(
+                    '@books+:favorites',
+                    JSON.stringify([...favorites, { ...fav }]),
+                );
+                setFavorites([...favorites, { ...fav }]);
+            }
         },
-        [favorites],
+        [favorites, removeFavorite],
     );
 
     const clearFavorites = useCallback(() => {
         setFavorites([]);
         localStorage.setItem('@books+:favorites', '');
-    }, [favorites]);
+    }, []);
 
     const value = React.useMemo(
         () => ({ favorites, addFavorite, removeFavorite, clearFavorites }),
