@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
+import { AiFillHeart, AiOutlineSearch } from 'react-icons/ai';
+
 import Loader from 'react-loader-spinner';
 import { useSearch } from '../../hooks/search';
 
@@ -27,13 +28,19 @@ const Search: React.FC = () => {
                 favoritos :)
             </p>
 
-            <div className="search__input">
+            <form
+                className="search__input"
+                onSubmit={e => {
+                    e.preventDefault();
+                    handleSearchBooks(therm);
+                }}
+            >
                 <input
                     type="text"
                     placeholder="Busque um livro"
                     onChange={e => setTherm(e.target.value)}
                 />
-                <button type="submit" onClick={() => handleSearchBooks(therm)}>
+                <button type="button" onClick={() => handleSearchBooks(therm)}>
                     {loading ? (
                         <Loader
                             type="ThreeDots"
@@ -43,9 +50,14 @@ const Search: React.FC = () => {
                             timeout={3000} // 3 secs
                         />
                     ) : (
-                        <FiSearch />
+                        <AiOutlineSearch />
                     )}
                 </button>
+            </form>
+
+            <div>
+                <span>Ver meus favoritos</span>
+                <AiFillHeart />
             </div>
         </div>
     );

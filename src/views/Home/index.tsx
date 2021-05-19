@@ -12,11 +12,7 @@ const Home: React.FC = () => {
             <Search />
             <div className="home__container">
                 {books.map(book => (
-                    <Card
-                        key={book.id}
-                        title={book.volumeInfo.title}
-                        thumbnail={book.volumeInfo.imageLinks.thumbnail}
-                    />
+                    <Card key={book.id} book={book.volumeInfo} />
                 ))}
             </div>
         </>
