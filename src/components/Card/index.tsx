@@ -20,7 +20,7 @@ interface Book {
 }
 
 const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
-    const [favorite, setFavorite] = useState(false);
+    const [favorite] = useState(false);
 
     const { title, subtitle, imageLinks, language, previewLink } = volumeInfo;
 
@@ -50,10 +50,14 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
                 <div className="card__header">
                     <strong>{title}</strong>
                     <span>{subtitle}</span>
+                    <span>Idioma: {language.toUpperCase()}</span>
+                    <a href={previewLink} target="blank">
+                        Ver no Google Books
+                    </a>
                 </div>
 
                 <div className="card__footer">
-                    <a href="/">Ver detalhes</a>
+                    <a href={`/details/${id}`}>Ver detalhes</a>
 
                     <button
                         type="button"
