@@ -2,12 +2,16 @@ import React, { useState, useCallback, useContext, createContext } from 'react';
 
 interface Book {
     id: string;
+    selfLink: string;
     volumeInfo: {
         title: string;
-        description: string;
+        subtitle?: string;
         imageLinks: {
             thumbnail: string;
+            smallThumbnail: string;
         };
+        language: string;
+        previewLink: string;
     };
 }
 

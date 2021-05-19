@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { useFavorite } from '../../hooks/favorites';
 
 import './styles.scss';
 
-interface CardProps {
-    book: {
+interface Book {
+    id: string;
+    selfLink: string;
+    volumeInfo: {
         title: string;
-        description: string;
+        subtitle?: string;
         imageLinks: {
             thumbnail: string;
+            smallThumbnail: string;
         };
+        language: string;
+        previewLink: string;
     };
 }
 
-const Card: React.FC<CardProps> = ({ book }) => {
+const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
     const [favorite, setFavorite] = useState(false);
 
-    const { title, imageLinks, description } = book;
+    const { title, subtitle, imageLinks, language, previewLink } = volumeInfo;
+
+    const { addFavorite } = useFavorite();
+
+    const handleFavorite = useCallback(
+        fav => {
+            addFavorite(fav);
+        },
+        [addFavorite],
+    );
 
     return (
         <div className="card__container">
@@ -34,7 +49,7 @@ const Card: React.FC<CardProps> = ({ book }) => {
             <div className="info__card">
                 <div className="card__header">
                     <strong>{title}</strong>
-                    <span>{description}</span>
+                    <span>{subtitle}</span>
                 </div>
 
                 <div className="card__footer">
@@ -42,7 +57,9 @@ const Card: React.FC<CardProps> = ({ book }) => {
 
                     <button
                         type="button"
-                        onClick={() => setFavorite(!favorite)}
+                        onClick={() => {
+                            handleFavorite({ id, selfLink, volumeInfo });
+                        }}
                     >
                         {favorite ? (
                             <AiFillHeart color="#c53030" size={20} />

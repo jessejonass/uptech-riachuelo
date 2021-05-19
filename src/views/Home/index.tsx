@@ -7,6 +7,7 @@ import './styles.scss';
 
 const Home: React.FC = () => {
     const { books } = useSearch();
+
     return (
         <>
             <Search />
@@ -14,8 +15,14 @@ const Home: React.FC = () => {
                 {Object.keys(books).length === 0 && (
                     <strong>Seus resultados de busca aparecerão aqui</strong>
                 )}
+
                 {books.map(book => (
-                    <Card key={book.id} book={book.volumeInfo} />
+                    <Card
+                        key={book.id}
+                        id={book.id}
+                        volumeInfo={book.volumeInfo}
+                        selfLink={book.selfLink}
+                    />
                 ))}
             </div>
         </>
