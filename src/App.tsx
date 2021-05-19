@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import './styles/global.scss';

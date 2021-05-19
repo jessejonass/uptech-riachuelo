@@ -18,24 +18,30 @@ interface Book {
 interface SearchContext {
     books: Book[];
     searchBooks(therm: string): void;
+    loading: boolean;
 }
 
 const SearchContext = createContext<SearchContext | null>(null);
 
 const SearchProvider: React.FC = ({ children }) => {
     const [books, setBooks] = useState<Book[]>([]);
+    const [loading, setLoading] = useState(false);
 
     const searchBooks = useCallback(async therm => {
+        setLoading(true);
         await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=search+${therm}`,
         )
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => {
+                setBooks(data.items);
+                setLoading(false);
+            });
     }, []);
 
     const value = React.useMemo(
-        () => ({ searchBooks, books }),
-        [searchBooks, books],
+        () => ({ searchBooks, books, loading }),
+        [searchBooks, books, loading],
     );
 
     return (
