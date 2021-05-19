@@ -1,10 +1,14 @@
 import React from 'react';
+import Search from '../../components/Search';
 
 const Home: React.FC = () => {
     return (
-        <div className="home__container">
-            <h1>Home</h1>
-        </div>
+        <>
+            <Search />
+            <div className="home__container">
+                <h1>Home</h1>
+            </div>
+        </>
     );
 };
 
