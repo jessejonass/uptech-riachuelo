@@ -1,10 +1,4 @@
-import React, {
-    useState,
-    useCallback,
-    useContext,
-    createContext,
-    useEffect,
-} from 'react';
+import React, { useState, useCallback, useContext, createContext } from 'react';
 
 // https://www.googleapis.com/books/v1/volumes?q=search+terms
 
@@ -12,6 +6,9 @@ interface Book {
     id: string;
     volumeInfo: {
         title: string;
+        imageLinks: {
+            thumbnail: string;
+        };
     };
 }
 
