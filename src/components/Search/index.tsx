@@ -1,9 +1,20 @@
-import React from 'react';
-import { FiSearch, FiHeart } from 'react-icons/fi';
+import React, { useCallback, useState } from 'react';
+import { FiSearch } from 'react-icons/fi';
+import { useSearch } from '../../hooks/search';
 
 import './styles.scss';
 
 const Search: React.FC = () => {
+    const [therm, setTherm] = useState('');
+    const { searchBooks } = useSearch();
+
+    const handleSearchBooks = useCallback(
+        (key: string) => {
+            searchBooks(key);
+        },
+        [searchBooks],
+    );
+
     return (
         <div className="search__container">
             <h1>
@@ -16,8 +27,8 @@ const Search: React.FC = () => {
             </p>
 
             <div className="search__input">
-                <input type="text" />
-                <button type="submit">
+                <input type="text" onChange={e => setTherm(e.target.value)} />
+                <button type="submit" onClick={() => handleSearchBooks(therm)}>
                     <FiSearch />
                 </button>
             </div>
