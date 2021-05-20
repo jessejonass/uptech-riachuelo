@@ -10,12 +10,12 @@ interface Book {
     volumeInfo: {
         title: string;
         subtitle?: string;
+        description?: string;
         imageLinks: {
             thumbnail: string;
             smallThumbnail: string;
         };
-        language: string;
-        previewLink: string;
+        publishedDate: string;
     };
 }
 
@@ -27,21 +27,15 @@ type DetailsProps = RouteComponentProps<RouterProps>;
 
 const Details: React.FC<DetailsProps> = ({ match }) => {
     const [book, setBook] = useState<Book>({} as Book);
-    const [loading, setLoading] = useState(false);
 
     const { id } = match.params;
 
     useEffect(() => {
         async function loadBook() {
-            setLoading(true);
-            await fetch(
-                `https://www.googleapis.com/books/v1/volumes?q=search+${id}`,
-                // GET https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?key=yourAPIKey
-            )
+            await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
                 .then(response => response.json())
                 .then(data => {
-                    setBook(data.items);
-                    setLoading(false);
+                    setBook(data);
                 });
         }
         loadBook();
@@ -50,7 +44,34 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
     return (
         <div className="details__container">
             <Back />
-            <h1>Detalhes</h1>
+
+            {book && Object.keys(book).length === 0 ? (
+                <span>Carregando...</span>
+            ) : (
+                <>
+                    <div className="details__header">
+                        <h2>{book.volumeInfo.title}</h2>
+
+                        <img
+                            src={book.volumeInfo.imageLinks.thumbnail}
+                            alt={book.volumeInfo.title}
+                        />
+
+                        <span>
+                            Lançado em:{' '}
+                            {new Date(
+                                book.volumeInfo.publishedDate,
+                            ).toLocaleDateString()}
+                        </span>
+
+                        <strong>{book.volumeInfo.subtitle}</strong>
+
+                        <span className="detasil__header-subtitle">
+                            {book.volumeInfo.description}
+                        </span>
+                    </div>
+                </>
+            )}
         </div>
     );
 };

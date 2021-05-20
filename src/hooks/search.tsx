@@ -5,7 +5,6 @@ import React, {
     createContext,
     useEffect,
 } from 'react';
-import { searchApi } from '../services/api';
 
 interface Book {
     id: string;
@@ -44,8 +43,7 @@ const SearchProvider: React.FC = ({ children }) => {
     const [disablePrevPage, setDisablePrevPage] = useState(false);
     const [disableNextPage, setDisableNextPage] = useState(false);
 
-    // adqdqd
-
+    // verifcações para bloquear paginação
     useEffect(() => {
         if (startIndex < 10) {
             setDisablePrevPage(true);
@@ -65,7 +63,9 @@ const SearchProvider: React.FC = ({ children }) => {
         setStartIndex(0); // quando faz uma busca, o proximo indice a iniciar é o 10
         setLoading(true); // resposta visual dos botões
 
-        await fetch(`${searchApi + term}&startIndex=0`)
+        await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=search+${term}&startIndex=0`,
+        )
             .then(response => response.json())
             .then(data => {
                 setTotalItems(data.totalItems);
@@ -76,11 +76,12 @@ const SearchProvider: React.FC = ({ children }) => {
 
     const nextPage = useCallback(async () => {
         setLoading(true);
-
         const page = startIndex + 10;
         setStartIndex(startIndex + 10);
 
-        await fetch(`${searchApi + searchTerm}&startIndex=${page}`)
+        await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=search+${searchTerm}&startIndex=${page}`,
+        )
             .then(response => response.json())
             .then(data => {
                 setBooks(data.items);
@@ -90,11 +91,12 @@ const SearchProvider: React.FC = ({ children }) => {
 
     const prevPage = useCallback(async () => {
         setLoading(true);
-
         const page = startIndex - 10;
         if (startIndex >= 0) setStartIndex(startIndex - 10);
 
-        await fetch(`${searchApi + searchTerm}&startIndex=${page}`)
+        await fetch(
+            `https://www.googleapis.com/books/v1/volumes?q=search+${searchTerm}&startIndex=${page}`,
+        )
             .then(response => response.json())
             .then(data => {
                 setBooks(data.items);
