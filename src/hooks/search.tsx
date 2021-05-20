@@ -26,7 +26,6 @@ interface SearchContext {
     prevPage(): void;
     disablePrevPage: boolean;
     disableNextPage: boolean;
-
     books: Book[]; // array de livros
     loading: boolean; // resposta visual dos botões
     totalItems: number; // verificador de página final
@@ -56,7 +55,7 @@ const SearchProvider: React.FC = ({ children }) => {
         } else {
             setDisableNextPage(false);
         }
-    }, [startIndex, books, totalItems]);
+    }, [startIndex, books, totalItems, searchTerm]);
 
     const searchBooks = useCallback(async term => {
         setSearchTerm(term); // o termo de pesquisa será usado para paginação

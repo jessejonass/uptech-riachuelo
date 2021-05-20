@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import { useFavorite } from '../../hooks/favorites';
 
 import './styles.scss';
@@ -65,7 +66,7 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo, favorite: f }) => {
                 </div>
 
                 <div className="card__footer">
-                    <a href={`/details/${id}`}>Ver detalhes</a>
+                    <Link to={`/details/${id}`}>Ver detalhes</Link>
 
                     <button
                         type="button"

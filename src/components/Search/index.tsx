@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { AiFillHeart, AiOutlineSearch } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 import Loader from 'react-loader-spinner';
 import { useSearch } from '../../hooks/search';
@@ -54,10 +55,10 @@ const Search: React.FC = () => {
                 </button>
             </form>
 
-            <a href="/favorites" className="search__favorites">
+            <Link to="/favorites" className="search__favorites">
                 <span>Ver meus favoritos</span>
                 <AiFillHeart />
-            </a>
+            </Link>
         </div>
     );
 };
