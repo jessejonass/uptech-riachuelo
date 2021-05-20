@@ -63,6 +63,7 @@ const SearchProvider: React.FC = ({ children }) => {
         setStartIndex(0); // quando faz uma busca, o proximo indice a iniciar é o 10
         setLoading(true); // resposta visual dos botões
 
+        // pesquisa em branco não retorna nada
         if (!term) {
             setBooks([]);
             setLoading(false);
@@ -84,6 +85,7 @@ const SearchProvider: React.FC = ({ children }) => {
         const page = startIndex + 10;
         setStartIndex(startIndex + 10);
 
+        // usando o startIdex para proxima página
         await fetch(
             `https://www.googleapis.com/books/v1/volumes?q=search+${searchTerm}&startIndex=${page}`,
         )
