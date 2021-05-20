@@ -6,7 +6,6 @@ import './styles.scss';
 const SeeMoreButton: React.FC = () => {
     const { nextPage, prevPage, disablePrevPage, disableNextPage } =
         useSearch();
-    console.log(disablePrevPage);
     return (
         <div className="pagination__container">
             <button

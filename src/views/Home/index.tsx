@@ -2,14 +2,15 @@ import React from 'react';
 import Card from '../../components/Card';
 import Search from '../../components/Search';
 import { useSearch } from '../../hooks/search';
+import { useFavorite } from '../../hooks/favorites';
 
 import './styles.scss';
 import Pagination from '../../components/Pagination';
-import thinking from '../../assets/thinking.svg';
 import note from '../../assets/note.svg';
 
 const Home: React.FC = () => {
     const { books } = useSearch();
+    const { favorites } = useFavorite();
 
     return (
         <>
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
                             id={book.id}
                             volumeInfo={book.volumeInfo}
                             selfLink={book.selfLink}
+                            favorite={!!favorites.find(f => f.id === book.id)}
                         />
                     ))
                 ) : (
