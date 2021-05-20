@@ -21,6 +21,7 @@ const Favorites: React.FC = () => {
                         id={favorite.id}
                         volumeInfo={favorite.volumeInfo}
                         selfLink={favorite.selfLink}
+                        favorite
                     />
                 ))}
             </div>

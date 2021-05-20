@@ -18,9 +18,10 @@ interface Book {
         previewLink?: string;
         publishedDate: string;
     };
+    favorite?: boolean;
 }
 
-const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
+const Card: React.FC<Book> = ({ id, selfLink, volumeInfo, favorite: f }) => {
     const [favorite, setFavorite] = useState(false);
     // const { title, subtitle, imageLinks, publishedDate } = volumeInfo;
     const { addFavorite } = useFavorite();
@@ -72,7 +73,7 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
                             handleFavorite({ id, selfLink, volumeInfo });
                         }}
                     >
-                        {favorite ? (
+                        {favorite || f ? (
                             <AiFillHeart color="#c53030" size={20} />
                         ) : (
                             <AiOutlineHeart size={20} />
