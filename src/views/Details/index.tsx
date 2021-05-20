@@ -38,7 +38,6 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
             await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
                     setBook(data);
                 });
         }
