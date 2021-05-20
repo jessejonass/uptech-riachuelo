@@ -1,5 +1,5 @@
 # Desafio técnico UP! TECH
-Disponível em: https://github.com/jessejonass/uptech-riachuelo.git
+Disponível em: https://desafio-uptech-riachuelo.netlify.app/
 ## Como instalar
 - Clonar o repositorio:
 > git clone https://github.com/jessejonass/uptech-riachuelo.git
@@ -20,6 +20,7 @@ Disponível em: https://github.com/jessejonass/uptech-riachuelo.git
 - Google Books API
 - React Icons
 - undraw.co
+- Netlify
 
 ### Capturas de tela
 *Home*
