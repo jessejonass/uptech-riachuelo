@@ -36,6 +36,7 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
             setLoading(true);
             await fetch(
                 `https://www.googleapis.com/books/v1/volumes?q=search+${id}`,
+                // GET https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?key=yourAPIKey
             )
                 .then(response => response.json())
                 .then(data => {

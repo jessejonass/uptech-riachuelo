@@ -4,8 +4,9 @@ import Search from '../../components/Search';
 import { useSearch } from '../../hooks/search';
 
 import './styles.scss';
-import SeeMoreButton from '../../components/SeeMoreButton';
-import BackToTopButton from '../../components/BackToTopButton';
+import Pagination from '../../components/Pagination';
+import thinking from '../../assets/thinking.svg';
+import note from '../../assets/note.svg';
 
 const Home: React.FC = () => {
     const { books } = useSearch();
@@ -13,11 +14,15 @@ const Home: React.FC = () => {
     return (
         <>
             <Search />
+            {books && Object.keys(books)?.length === 0 && (
+                <div className="home__empty">
+                    <img src={note} alt="Busca" />
+                    <strong>
+                        Faça uma busca por autor, livro ou palavra chave
+                    </strong>
+                </div>
+            )}
             <div className="home__container">
-                {books && Object.keys(books)?.length === 0 && (
-                    <strong>Seus resultados de busca aparecerão aqui</strong>
-                )}
-
                 {books ? (
                     books.map(book => (
                         <Card
@@ -34,8 +39,7 @@ const Home: React.FC = () => {
 
             {books && Object.keys(books)?.length > 0 && (
                 <>
-                    <SeeMoreButton />
-                    <BackToTopButton />
+                    <Pagination />
                 </>
             )}
         </>

@@ -53,7 +53,14 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
                 <div className="card__header">
                     <strong>{volumeInfo?.title}</strong>
                     <span>{volumeInfo?.subtitle}</span>
-                    <span>Lançamento: {volumeInfo?.publishedDate}</span>
+                    <span>
+                        Lançamento:{' '}
+                        <strong>
+                            {new Date(
+                                volumeInfo?.publishedDate,
+                            ).toLocaleDateString()}
+                        </strong>
+                    </span>
                 </div>
 
                 <div className="card__footer">

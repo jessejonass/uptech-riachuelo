@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useContext, createContext } from 'react';
+import React, {
+    useState,
+    useCallback,
+    useContext,
+    createContext,
+    useEffect,
+} from 'react';
 import { searchApi } from '../services/api';
 
 interface Book {
@@ -16,11 +22,15 @@ interface Book {
 }
 
 interface SearchContext {
-    searchBooks(term: string): void;
-    books: Book[];
-    loading: boolean;
-    totalItems: number;
+    searchBooks(term: string): void; // função de busca
     nextPage(): void;
+    prevPage(): void;
+    disablePrevPage: boolean;
+    disableNextPage: boolean;
+
+    books: Book[]; // array de livros
+    loading: boolean; // resposta visual dos botões
+    totalItems: number; // verificador de página final
 }
 
 const SearchContext = createContext<SearchContext | null>(null);
@@ -31,16 +41,31 @@ const SearchProvider: React.FC = ({ children }) => {
     const [startIndex, setStartIndex] = useState(0);
     const [totalItems, setTotalItems] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
+    const [disablePrevPage, setDisablePrevPage] = useState(false);
+    const [disableNextPage, setDisableNextPage] = useState(false);
+
+    // adqdqd
+
+    useEffect(() => {
+        if (startIndex < 10) {
+            setDisablePrevPage(true);
+        } else {
+            setDisablePrevPage(false);
+        }
+
+        if (books && Object.keys(books).length < 10) {
+            setDisableNextPage(true);
+        } else {
+            setDisableNextPage(false);
+        }
+    }, [startIndex, books, totalItems]);
 
     const searchBooks = useCallback(async term => {
-        setSearchTerm(term);
-        setStartIndex(10);
-        setLoading(true);
-        await fetch(
-            `${searchApi + term}&key=${
-                process.env.REACT_APP_GOOGLE_API_KEY
-            }&startIndex=0`,
-        )
+        setSearchTerm(term); // o termo de pesquisa será usado para paginação
+        setStartIndex(0); // quando faz uma busca, o proximo indice a iniciar é o 10
+        setLoading(true); // resposta visual dos botões
+
+        await fetch(`${searchApi + term}&startIndex=0`)
             .then(response => response.json())
             .then(data => {
                 setTotalItems(data.totalItems);
@@ -51,18 +76,31 @@ const SearchProvider: React.FC = ({ children }) => {
 
     const nextPage = useCallback(async () => {
         setLoading(true);
+
+        const page = startIndex + 10;
         setStartIndex(startIndex + 10);
-        await fetch(
-            `${searchApi + searchTerm}&key=${
-                process.env.REACT_APP_GOOGLE_API_KEY
-            }&startIndex=${startIndex}`,
-        )
+
+        await fetch(`${searchApi + searchTerm}&startIndex=${page}`)
             .then(response => response.json())
             .then(data => {
-                setBooks([...books, ...data.items]);
+                setBooks(data.items);
                 setLoading(false);
             });
-    }, [startIndex, books, searchTerm]);
+    }, [startIndex, searchTerm]);
+
+    const prevPage = useCallback(async () => {
+        setLoading(true);
+
+        const page = startIndex - 10;
+        if (startIndex >= 0) setStartIndex(startIndex - 10);
+
+        await fetch(`${searchApi + searchTerm}&startIndex=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                setBooks(data.items);
+                setLoading(false);
+            });
+    }, [startIndex, searchTerm]);
 
     const value = React.useMemo(
         () => ({
@@ -71,8 +109,20 @@ const SearchProvider: React.FC = ({ children }) => {
             loading,
             totalItems,
             nextPage,
+            prevPage,
+            disablePrevPage,
+            disableNextPage,
         }),
-        [searchBooks, books, loading, totalItems, nextPage],
+        [
+            searchBooks,
+            books,
+            loading,
+            totalItems,
+            nextPage,
+            prevPage,
+            disablePrevPage,
+            disableNextPage,
+        ],
     );
 
     return (

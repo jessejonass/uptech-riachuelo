@@ -1,0 +1,24 @@
+.pagination__container {
+    margin-bottom: 20px;
+    height: 40px;
+    width: 100%;
+    max-width: 1160px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+        width: 49%;
+        border: 0;
+        background: #6c63ff;
+        color: #e5e5e5;
+        height: 35px;
+        border-radius: 4px;
+
+        &:disabled {
+            cursor: not-allowed;
+            filter: contrast(0.2);
+        }
+    }
+}
