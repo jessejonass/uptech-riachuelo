@@ -9,7 +9,7 @@ import './styles.scss';
 
 const Search: React.FC = () => {
     const [term, setTerm] = useState('');
-    const { searchBooks, loading } = useSearch();
+    const { searchBooks, loading, searchTerm } = useSearch();
 
     const handleSearchBooks = useCallback(
         (key: string) => {
@@ -39,6 +39,7 @@ const Search: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Busque um livro"
+                    defaultValue={searchTerm || ''}
                     onChange={e => setTerm(e.target.value)}
                 />
                 <button type="button" onClick={() => handleSearchBooks(term)}>

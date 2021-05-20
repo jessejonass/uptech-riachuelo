@@ -29,6 +29,7 @@ interface SearchContext {
     books: Book[]; // array de livros
     loading: boolean; // resposta visual dos botões
     totalItems: number; // verificador de página final
+    searchTerm: string;
 }
 
 const SearchContext = createContext<SearchContext | null>(null);
@@ -62,15 +63,20 @@ const SearchProvider: React.FC = ({ children }) => {
         setStartIndex(0); // quando faz uma busca, o proximo indice a iniciar é o 10
         setLoading(true); // resposta visual dos botões
 
-        await fetch(
-            `https://www.googleapis.com/books/v1/volumes?q=search+${term}&startIndex=0`,
-        )
-            .then(response => response.json())
-            .then(data => {
-                setTotalItems(data.totalItems);
-                setBooks(data.items);
-                setLoading(false);
-            });
+        if (!term) {
+            setBooks([]);
+            setLoading(false);
+        } else {
+            await fetch(
+                `https://www.googleapis.com/books/v1/volumes?q=search+${term}&startIndex=0`,
+            )
+                .then(response => response.json())
+                .then(data => {
+                    setTotalItems(data.totalItems);
+                    setBooks(data.items);
+                    setLoading(false);
+                });
+        }
     }, []);
 
     const nextPage = useCallback(async () => {
@@ -113,6 +119,7 @@ const SearchProvider: React.FC = ({ children }) => {
             prevPage,
             disablePrevPage,
             disableNextPage,
+            searchTerm,
         }),
         [
             searchBooks,
@@ -123,6 +130,7 @@ const SearchProvider: React.FC = ({ children }) => {
             prevPage,
             disablePrevPage,
             disableNextPage,
+            searchTerm,
         ],
     );
 
