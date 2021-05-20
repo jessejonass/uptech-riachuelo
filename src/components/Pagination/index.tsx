@@ -11,7 +11,13 @@ const SeeMoreButton: React.FC = () => {
             <button
                 disabled={disablePrevPage}
                 type="button"
-                onClick={() => prevPage()}
+                onClick={() => {
+                    prevPage();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                    });
+                }}
                 className="prev__button"
             >
                 <strong>Anterior</strong>
@@ -20,7 +26,13 @@ const SeeMoreButton: React.FC = () => {
             <button
                 disabled={disableNextPage}
                 type="button"
-                onClick={() => nextPage()}
+                onClick={() => {
+                    nextPage();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth',
+                    });
+                }}
                 className="next__button"
             >
                 <strong>Próximo</strong>
