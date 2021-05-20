@@ -7,6 +7,7 @@ import { useFavorite } from '../../hooks/favorites';
 import './styles.scss';
 import Pagination from '../../components/Pagination';
 import note from '../../assets/note.svg';
+import search from '../../assets/search.svg';
 
 const Home: React.FC = () => {
     const { books } = useSearch();
@@ -23,8 +24,9 @@ const Home: React.FC = () => {
                     </strong>
                 </div>
             )}
+
             <div className="home__container">
-                {books ? (
+                {books &&
                     books.map(book => (
                         <Card
                             key={book.id}
@@ -33,11 +35,15 @@ const Home: React.FC = () => {
                             selfLink={book.selfLink}
                             favorite={!!favorites.find(f => f.id === book.id)}
                         />
-                    ))
-                ) : (
-                    <strong>Sem resultados</strong>
-                )}
+                    ))}
             </div>
+
+            {!books && (
+                <div className="home__not-found">
+                    <strong>Não foram encontrados registros</strong>
+                    <img src={search} alt="Busca" />
+                </div>
+            )}
 
             {books && Object.keys(books)?.length > 0 && (
                 <>
