@@ -4,6 +4,8 @@ import Search from '../../components/Search';
 import { useSearch } from '../../hooks/search';
 
 import './styles.scss';
+import SeeMoreButton from '../../components/SeeMoreButton';
+import BackToTopButton from '../../components/BackToTopButton';
 
 const Home: React.FC = () => {
     const { books } = useSearch();
@@ -12,7 +14,7 @@ const Home: React.FC = () => {
         <>
             <Search />
             <div className="home__container">
-                {Object.keys(books)?.length === 0 && (
+                {books && Object.keys(books)?.length === 0 && (
                     <strong>Seus resultados de busca aparecerão aqui</strong>
                 )}
 
@@ -29,6 +31,13 @@ const Home: React.FC = () => {
                     <strong>Sem resultados</strong>
                 )}
             </div>
+
+            {books && Object.keys(books)?.length > 0 && (
+                <>
+                    <SeeMoreButton />
+                    <BackToTopButton />
+                </>
+            )}
         </>
     );
 };

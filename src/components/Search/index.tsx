@@ -7,7 +7,7 @@ import { useSearch } from '../../hooks/search';
 import './styles.scss';
 
 const Search: React.FC = () => {
-    const [therm, setTherm] = useState('');
+    const [term, setTerm] = useState('');
     const { searchBooks, loading } = useSearch();
 
     const handleSearchBooks = useCallback(
@@ -24,30 +24,29 @@ const Search: React.FC = () => {
             </h1>
 
             <p>
-                Faça uma busca por nossa biblioteca, econtre e salve seus livros
-                favoritos :)
+                Faça uma busca por nossa biblioteca, encontre e salve seus
+                livros favoritos :)
             </p>
 
             <form
                 className="search__input"
                 onSubmit={e => {
                     e.preventDefault();
-                    handleSearchBooks(therm);
+                    handleSearchBooks(term);
                 }}
             >
                 <input
                     type="text"
                     placeholder="Busque um livro"
-                    onChange={e => setTherm(e.target.value)}
+                    onChange={e => setTerm(e.target.value)}
                 />
-                <button type="button" onClick={() => handleSearchBooks(therm)}>
+                <button type="button" onClick={() => handleSearchBooks(term)}>
                     {loading ? (
                         <Loader
                             type="ThreeDots"
                             color="#e5e5e5"
                             height={30}
                             width={30}
-                            timeout={3000} // 3 secs
                         />
                     ) : (
                         <AiOutlineSearch />

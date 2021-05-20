@@ -16,8 +16,9 @@ interface Book {
             thumbnail: string;
             smallThumbnail: string;
         };
-        language: string;
-        previewLink: string;
+        language?: string;
+        previewLink?: string;
+        publishedDate: string;
     };
 }
 

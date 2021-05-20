@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useContext, createContext } from 'react';
+import { searchApi } from '../services/api';
 
 interface Book {
     id: string;
@@ -10,15 +11,16 @@ interface Book {
             thumbnail: string;
             smallThumbnail: string;
         };
-        language: string;
-        previewLink: string;
+        publishedDate: string;
     };
 }
 
 interface SearchContext {
+    searchBooks(term: string): void;
     books: Book[];
-    searchBooks(therm: string): void;
     loading: boolean;
+    totalItems: number;
+    nextPage(): void;
 }
 
 const SearchContext = createContext<SearchContext | null>(null);
@@ -26,22 +28,51 @@ const SearchContext = createContext<SearchContext | null>(null);
 const SearchProvider: React.FC = ({ children }) => {
     const [books, setBooks] = useState<Book[]>([]);
     const [loading, setLoading] = useState(false);
+    const [startIndex, setStartIndex] = useState(0);
+    const [totalItems, setTotalItems] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const searchBooks = useCallback(async therm => {
+    const searchBooks = useCallback(async term => {
+        setSearchTerm(term);
+        setStartIndex(10);
         setLoading(true);
         await fetch(
-            `https://www.googleapis.com/books/v1/volumes?q=search+${therm}`,
+            `${searchApi + term}&key=${
+                process.env.REACT_APP_GOOGLE_API_KEY
+            }&startIndex=0`,
         )
             .then(response => response.json())
             .then(data => {
+                setTotalItems(data.totalItems);
                 setBooks(data.items);
                 setLoading(false);
             });
     }, []);
 
+    const nextPage = useCallback(async () => {
+        setLoading(true);
+        setStartIndex(startIndex + 10);
+        await fetch(
+            `${searchApi + searchTerm}&key=${
+                process.env.REACT_APP_GOOGLE_API_KEY
+            }&startIndex=${startIndex}`,
+        )
+            .then(response => response.json())
+            .then(data => {
+                setBooks([...books, ...data.items]);
+                setLoading(false);
+            });
+    }, [startIndex, books, searchTerm]);
+
     const value = React.useMemo(
-        () => ({ searchBooks, books, loading }),
-        [searchBooks, books, loading],
+        () => ({
+            searchBooks,
+            books,
+            loading,
+            totalItems,
+            nextPage,
+        }),
+        [searchBooks, books, loading, totalItems, nextPage],
     );
 
     return (

@@ -1,0 +1,15 @@
+.back-to-top-button__container {
+    width: 40px;
+    height: 40px;
+    background: #2a2a2a;
+    color: #e5e5e5;
+    border-radius: 50%;
+    border: 0;
+    position: fixed;
+    left: 80%;
+    right: 0;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -14,30 +14,33 @@ interface Book {
             thumbnail: string;
             smallThumbnail: string;
         };
-        language: string;
-        previewLink: string;
+        language?: string;
+        previewLink?: string;
+        publishedDate: string;
     };
 }
 
 const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
-    const [favorite] = useState(false);
-
-    const { title, subtitle, imageLinks, language, previewLink } = volumeInfo;
-
+    const [favorite, setFavorite] = useState(false);
+    // const { title, subtitle, imageLinks, publishedDate } = volumeInfo;
     const { addFavorite } = useFavorite();
 
     const handleFavorite = useCallback(
         fav => {
             addFavorite(fav);
+            setFavorite(!favorite);
         },
-        [addFavorite],
+        [addFavorite, favorite],
     );
 
     return (
         <div className="card__container">
             <div className="image__card">
-                {imageLinks?.thumbnail ? (
-                    <img src={imageLinks?.thumbnail} alt={title} />
+                {volumeInfo?.imageLinks?.thumbnail ? (
+                    <img
+                        src={volumeInfo?.imageLinks?.thumbnail}
+                        alt={volumeInfo?.title}
+                    />
                 ) : (
                     <img
                         src="https://via.placeholder.com/128x184"
@@ -48,16 +51,9 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
 
             <div className="info__card">
                 <div className="card__header">
-                    <strong>{title}</strong>
-                    <span>{subtitle}</span>
-                    <span>Idioma: {language.toUpperCase()}</span>
-                    <a
-                        href={previewLink}
-                        target="blank"
-                        rel="noopener noreferrer"
-                    >
-                        Ver no Google Books
-                    </a>
+                    <strong>{volumeInfo?.title}</strong>
+                    <span>{volumeInfo?.subtitle}</span>
+                    <span>Lançamento: {volumeInfo?.publishedDate}</span>
                 </div>
 
                 <div className="card__footer">
@@ -65,7 +61,7 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo }) => {
 
                     <button
                         type="button"
-                        onClick={() => {
+                        onClick={async () => {
                             handleFavorite({ id, selfLink, volumeInfo });
                         }}
                     >

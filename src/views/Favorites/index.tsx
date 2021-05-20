@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useFavorite } from '../../hooks/favorites';
 import Card from '../../components/Card';
 
