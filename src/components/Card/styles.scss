@@ -60,12 +60,11 @@
         height: 30px;
 
         a {
-            color: #303030;
+            color: #e5e5e5;
             transition: color 0.2s;
-
-            &:hover {
-                color: #6c63ff;
-            }
+            background: #6c63ff;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
 
         button {
