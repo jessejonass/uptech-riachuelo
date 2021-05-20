@@ -1,46 +1,32 @@
-# Getting Started with Create React App
+# Desafio técnico UP! TECH
+Disponível em: https://github.com/jessejonass/uptech-riachuelo.git
+## Como instalar
+- Clonar o repositorio:
+> git clone https://github.com/jessejonass/uptech-riachuelo.git
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Instalar as dependências - dentro da pasta criada, executar o comando:
+> npm install
 
-## Available Scripts
+- Executar aplicação
+> npm start
 
-In the project directory, you can run:
+## Sistema de busca de livros utilizando a API do Google Books
 
-### `yarn start`
+### Ferramentas utilizadas:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- ReactJS
+- TypeScript
+- ESLint
+- Google Books API
+- React Icons
+- undraw.co
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Capturas de tela
+*Home*
+![1](https://user-images.githubusercontent.com/29109974/118989135-2b523300-b958-11eb-85bb-77f8249c1ba4.png)
 
-### `yarn test`
+*Favoritos*
+![2](https://user-images.githubusercontent.com/29109974/118989141-2d1bf680-b958-11eb-8a31-113c6a594418.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+*Detalhes*
+![3](https://user-images.githubusercontent.com/29109974/118989144-2d1bf680-b958-11eb-8165-b99174ba7f10.png)
