@@ -15,6 +15,9 @@ interface Book {
             thumbnail: string;
             smallThumbnail: string;
         };
+        authors: string[];
+        language: string;
+        previewLink: string;
         publishedDate: string;
     };
 }
@@ -35,6 +38,7 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
             await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     setBook(data);
                 });
         }
@@ -65,10 +69,32 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
                         </span>
 
                         <strong>{book.volumeInfo.subtitle}</strong>
+                    </div>
 
-                        <span className="detasil__header-subtitle">
+                    <div className="details__body">
+                        <strong>
+                            Autor(xs):{' '}
+                            {book.volumeInfo.authors.map(a => a).join('; ')}
+                        </strong>
+
+                        <strong>
+                            Idioma: {book.volumeInfo.language.toUpperCase()}
+                        </strong>
+
+                        <strong>
+                            Ver no{' '}
+                            <a
+                                href={book.volumeInfo.previewLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Google Books
+                            </a>
+                        </strong>
+
+                        <p className="detasil__header-subtitle">
                             {book.volumeInfo.description}
-                        </span>
+                        </p>
                     </div>
                 </>
             )}
