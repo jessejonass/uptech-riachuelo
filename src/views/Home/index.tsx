@@ -20,7 +20,7 @@ const Home: React.FC = () => {
                 <div className="home__empty">
                     <img src={note} alt="Busca" />
                     <strong>
-                        Faça uma busca por autor, livro ou palavra chave
+                        Faça uma busca por autor, livro ou palavra-chave
                     </strong>
                 </div>
             )}
