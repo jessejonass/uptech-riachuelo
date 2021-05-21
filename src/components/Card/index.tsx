@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useFavorite } from '../../hooks/favorites';
@@ -26,14 +26,21 @@ const Card: React.FC<Book> = ({ id, selfLink, volumeInfo, favorite: f }) => {
     const [favorite, setFavorite] = useState(false);
     const { addFavorite, removeFavorite } = useFavorite();
 
+    useEffect(() => {
+        if (f) {
+            setFavorite(f);
+        }
+    }, [f]);
+
     const handleFavorite = useCallback(
         fav => {
             if (favorite) {
+                setFavorite(!favorite);
                 removeFavorite(fav);
             } else {
+                setFavorite(!favorite);
                 addFavorite(fav);
             }
-            setFavorite(!favorite);
         },
         [addFavorite, favorite, removeFavorite],
     );
