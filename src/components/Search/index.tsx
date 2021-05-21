@@ -42,6 +42,7 @@ const Search: React.FC = () => {
                     defaultValue={searchTerm || ''}
                     onChange={e => setTerm(e.target.value)}
                 />
+
                 <button type="button" onClick={() => handleSearchBooks(term)}>
                     {loading ? (
                         <Loader

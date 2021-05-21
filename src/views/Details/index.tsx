@@ -12,7 +12,7 @@ interface Book {
         subtitle?: string;
         description?: string;
         imageLinks: {
-            thumbnail: string;
+            thumbnail?: string;
             smallThumbnail: string;
         };
         authors: string[];
@@ -55,10 +55,17 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
                     <div className="details__header">
                         <h2>{book.volumeInfo.title}</h2>
 
-                        <img
-                            src={book.volumeInfo.imageLinks.thumbnail}
-                            alt={book.volumeInfo.title}
-                        />
+                        {book.volumeInfo?.imageLinks?.thumbnail ? (
+                            <img
+                                src={book.volumeInfo?.imageLinks?.thumbnail}
+                                alt={book.volumeInfo?.title}
+                            />
+                        ) : (
+                            <img
+                                src="https://via.placeholder.com/128x184"
+                                alt="Placeholder"
+                            />
+                        )}
 
                         <span>
                             Lançado em:{' '}

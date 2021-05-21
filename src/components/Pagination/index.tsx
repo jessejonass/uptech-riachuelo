@@ -6,6 +6,14 @@ import './styles.scss';
 const SeeMoreButton: React.FC = () => {
     const { nextPage, prevPage, disablePrevPage, disableNextPage } =
         useSearch();
+
+    function scrollTop(): void {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
+
     return (
         <div className="pagination__container">
             <button
@@ -13,10 +21,7 @@ const SeeMoreButton: React.FC = () => {
                 type="button"
                 onClick={() => {
                     prevPage();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth',
-                    });
+                    scrollTop();
                 }}
                 className="prev__button"
             >
@@ -28,10 +33,7 @@ const SeeMoreButton: React.FC = () => {
                 type="button"
                 onClick={() => {
                     nextPage();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth',
-                    });
+                    scrollTop();
                 }}
                 className="next__button"
             >
