@@ -24,15 +24,18 @@ interface Book {
 
 const Card: React.FC<Book> = ({ id, selfLink, volumeInfo, favorite: f }) => {
     const [favorite, setFavorite] = useState(false);
-    // const { title, subtitle, imageLinks, publishedDate } = volumeInfo;
-    const { addFavorite } = useFavorite();
+    const { addFavorite, removeFavorite } = useFavorite();
 
     const handleFavorite = useCallback(
         fav => {
-            addFavorite(fav);
+            if (favorite) {
+                removeFavorite(fav);
+            } else {
+                addFavorite(fav);
+            }
             setFavorite(!favorite);
         },
-        [addFavorite, favorite],
+        [addFavorite, favorite, removeFavorite],
     );
 
     return (
