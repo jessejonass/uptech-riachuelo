@@ -15,8 +15,8 @@ interface Book {
             thumbnail?: string;
             smallThumbnail: string;
         };
-        authors: string[];
-        language: string;
+        authors?: string[];
+        language?: string;
         previewLink: string;
         publishedDate: string;
     };
@@ -80,11 +80,11 @@ const Details: React.FC<DetailsProps> = ({ match }) => {
                     <div className="details__body">
                         <strong>
                             Autor(xs):{' '}
-                            {book.volumeInfo.authors.map(a => a).join('; ')}
+                            {book.volumeInfo.authors?.map(a => a).join('; ')}
                         </strong>
 
                         <strong>
-                            Idioma: {book.volumeInfo.language.toUpperCase()}
+                            Idioma: {book.volumeInfo.language?.toUpperCase()}
                         </strong>
 
                         <strong>
